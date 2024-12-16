@@ -32,20 +32,15 @@ fun main() {
             left.toInt() to right.toInt()
         }.unzip()
 
-        val correctCases = cases.map { case ->
-            case
-                .split(",")
-                .map { it.toInt() }
-        }
-            .filter { case ->
-                case
-                    .withIndex()
-                    .all { (index, value) ->
-                        index == right.zip(left).count { (r, l) -> r == value && l in case }
-                    }
-            }
+        val mappedCases = cases.map { it.split(',').map { it.toInt() } }
 
-        val incorrectCases = cases.map { case -> case.split(',').map { it.toInt() } }.filterNot { it in correctCases }
+        val correctCases = mappedCases.filter { case ->
+                case.withIndex().all { (index, value) ->
+                    index == right.zip(left).count { (r, l) -> r == value && l in case }
+                }
+        }
+
+        val incorrectCases = mappedCases.filterNot { it in correctCases }
 
         return incorrectCases.sumOf { case ->
             case.find {
