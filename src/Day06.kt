@@ -42,11 +42,11 @@ class Guard(var position: Coordinate, var direction: Direction, val maze: List<M
 
 operator fun List<List<Char>>.get(coordinate: Coordinate) = get(coordinate.y)[coordinate.x]
 
-operator fun List<MutableList<Char>>.set(coordinate: Coordinate, newChar: Char) {
+operator fun <T: Any> List<MutableList<T>>.set(coordinate: Coordinate, newChar: T) {
     get(coordinate.y)[coordinate.x] = newChar
 }
 
-data class Coordinate(var y: Int, var x: Int) {
+data class Coordinate(val y: Int, val x: Int) {
     operator fun plus(direction: Direction): Coordinate {
         return Coordinate(y + direction.y, x + direction.x)
     }
